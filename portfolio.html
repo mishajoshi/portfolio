@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Misha Joshi — Embedded Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── VARIABLES ── */
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2333;
+  --border:rgba(139,148,158,.15);
+  --text:#e6edf3;--dim:#8b949e;
+  --accent:#f0883e;--blue:#79c0ff;--green:#56d364;
+  --serif:'Playfair Display',serif;
+  --sans:'Space Grotesk',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+
+/* ── NAV ── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  background:rgba(13,17,23,.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);transition:padding .3s;
+}
+#navbar.scrolled{padding:.65rem 3rem}
+.nav-logo{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-status{display:flex;align-items:center;gap:.5rem;font-size:11px;color:var(--dim);font-family:var(--mono)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ─── RESUME BUTTON — replace href="#" with your PDF link ─── */
+.nav-resume{
+  background:var(--accent);color:var(--bg);
+  padding:.3rem .9rem;border-radius:4px;
+  font-size:11px;font-weight:600;text-decoration:none;
+  font-family:var(--mono);letter-spacing:.04em;
+  transition:all .2s;white-space:nowrap;
+}
+.nav-resume:hover{background:#fff}
+
+/* ── HERO ── */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:8rem 3rem 4rem;overflow:hidden}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 40%,rgba(240,136,62,.06) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 70%,rgba(121,192,255,.04) 0%,transparent 50%);
+}
+.hero-inner{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center;position:relative;z-index:2}
+.hero-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.hero-kicker::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,6.5vw,5.5rem);line-height:.95;letter-spacing:-.02em;color:var(--text);margin-bottom:1.25rem}
+.hero-name .italic{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:.95rem;color:var(--dim);line-height:1.8;max-width:520px;margin-bottom:2rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.hero-tag{background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.2);color:var(--accent);font-size:10px;padding:3px 10px;border-radius:3px;font-family:var(--mono);letter-spacing:.06em}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:var(--bg);padding:.7rem 1.75rem;text-decoration:none;font-weight:600;font-size:12px;letter-spacing:.06em;border-radius:4px;transition:all .2s}
+.btn-primary:hover{background:#fff;transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--border);color:var(--dim);padding:.7rem 1.75rem;text-decoration:none;font-size:12px;letter-spacing:.06em;border-radius:4px;transition:all .2s}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.hero-right{display:flex;flex-direction:column;gap:1rem;align-items:center;min-width:240px}
+/* ─── PHOTO ─── replace the placeholder div with: <img src="photo.jpg" alt="Misha Joshi" class="hero-photo"> */
+.hero-photo{width:220px;height:220px;border-radius:12px;object-fit:cover;border:2px solid rgba(240,136,62,.4);box-shadow:0 0 0 6px rgba(240,136,62,.06),0 20px 60px rgba(0,0,0,.5)}
+.hero-photo-placeholder{width:220px;height:220px;border-radius:12px;border:2px dashed rgba(240,136,62,.3);display:flex;align-items:center;justify-content:center;color:rgba(240,136,62,.5);font-size:11px;text-align:center;background:rgba(240,136,62,.03);font-family:var(--mono)}
+.hero-info-cards{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;width:220px}
+.hero-info-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.6rem .75rem}
+.hi-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.15rem}
+.hi-value{display:block;font-size:12px;font-weight:600;color:var(--text)}
+
+/* ── SECTIONS ── */
+section{padding:6rem 3rem;max-width:1200px;margin:0 auto;position:relative;border-top:1px solid var(--border)}
+.section-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem}
+.section-kicker::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+section h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:-.01em;margin-bottom:2.5rem;color:var(--text)}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start}
+.about-text p{font-size:.95rem;line-height:1.85;color:var(--dim);margin-bottom:1.25rem}
+.about-text p:last-child{margin-bottom:0}
+.about-text strong{color:var(--blue);font-weight:600}
+.about-sidebar{display:flex;flex-direction:column;gap:.75rem}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem}
+.sidebar-card-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.65rem}
+.sidebar-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.sidebar-tags span{font-size:10px;padding:2px 9px;background:rgba(240,136,62,.06);border:1px solid rgba(240,136,62,.15);color:var(--accent);border-radius:3px;font-family:var(--mono)}
+.sidebar-resume-actions{display:flex;gap:.5rem}
+.sidebar-resume-btn{flex:1;text-align:center;padding:.45rem .5rem;border-radius:4px;font-size:11px;font-weight:600;font-family:var(--mono);text-decoration:none;transition:all .2s;white-space:nowrap}
+.sidebar-resume-btn.primary{background:var(--accent);color:var(--bg)}
+.sidebar-resume-btn.primary:hover{background:#fff}
+.sidebar-resume-btn.ghost{border:1px solid var(--border);color:var(--dim)}
+.sidebar-resume-btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── PROJECTS ── */
+.projects-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.filter-tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+.filter-btn{background:transparent;border:1px solid var(--border);color:var(--dim);font-family:var(--mono);font-size:11px;padding:.3rem .9rem;border-radius:3px;cursor:pointer;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.25rem}
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:all .3s}
+.project-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:transparent;transition:background .3s}
+.project-card:hover{border-color:rgba(240,136,62,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);transform:translateY(-2px)}
+.project-card:hover::before{background:var(--accent)}
+.project-card.featured{border-color:rgba(240,136,62,.2)}
+.project-card.featured::before{background:var(--accent)}
+.project-card.hidden{display:none!important}
+.card-header{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.card-num{font-family:var(--mono);font-size:10px;color:var(--dim)}
+.card-badges{display:flex;gap:.35rem;flex-wrap:wrap;flex:1}
+.badge{font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--dim);font-family:var(--mono)}
+.badge-featured{background:rgba(240,136,62,.1);border-color:rgba(240,136,62,.25);color:var(--accent)}
+.card-github{color:var(--dim);transition:color .2s;display:flex;align-items:center;margin-left:auto}
+.card-github svg{width:15px;height:15px}
+.card-github:hover{color:var(--accent)}
+.project-card h3{font-family:var(--sans);font-size:1rem;font-weight:600;line-height:1.3;margin-bottom:.5rem;color:var(--text)}
+.project-card>p{font-size:12px;color:var(--dim);line-height:1.7;margin-bottom:.75rem}
+.card-highlights{list-style:none;margin-bottom:.75rem}
+.card-highlights li{font-size:11px;color:var(--dim);padding-left:1rem;position:relative;margin-bottom:.25rem;line-height:1.6}
+.card-highlights li::before{content:'›';position:absolute;left:0;color:var(--accent);font-size:12px}
+.card-tech{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem}
+.card-tech span{font-size:9px;padding:2px 7px;background:rgba(121,192,255,.06);border:1px solid rgba(121,192,255,.12);color:var(--blue);border-radius:3px;font-family:var(--mono);white-space:nowrap}
+.card-expand-btn{font-size:10px;color:var(--dim);cursor:pointer;background:none;border:none;font-family:var(--mono);text-align:left;padding:.25rem 0;margin-top:auto;transition:color .2s}
+.card-expand-btn:hover{color:var(--accent)}
+.card-detail{display:none;margin-top:.75rem;padding:.9rem;border:1px solid var(--border);border-radius:4px;background:rgba(0,0,0,.2);font-size:11.5px;color:var(--dim);line-height:1.8}
+.card-detail.open{display:block}
+.card-detail p{margin-bottom:.5rem}
+.card-detail p:last-child{margin-bottom:0}
+.card-detail code{color:var(--blue);background:rgba(121,192,255,.08);padding:1px 4px;border-radius:2px;font-family:var(--mono);font-size:10.5px}
+.detail-label{font-weight:600;color:var(--text)}
+.detail-note{color:var(--blue);font-size:10px;font-family:var(--mono);display:block;margin-top:.6rem;padding:.5rem .6rem;background:rgba(121,192,255,.05);border-left:2px solid var(--blue);border-radius:0 3px 3px 0}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
+.skill-group{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem}
+.skill-group-title{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.skill-items{display:flex;flex-wrap:wrap;gap:.35rem}
+.skill-items span{font-size:11px;padding:3px 9px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:3px;color:var(--dim);font-family:var(--mono);transition:all .2s;cursor:default}
+.skill-items span:hover{background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.2);color:var(--accent)}
+.skill-group.familiarity .skill-items span{background:rgba(139,148,158,.05);border-color:rgba(139,148,158,.15);color:var(--dim)}
+.skill-group.familiarity .skill-items span:hover{background:rgba(240,136,62,.06);border-color:rgba(240,136,62,.15);color:var(--accent)}
+
+/* ── EXPERIENCE ── */
+.timeline{margin-bottom:3rem}
+.timeline-item{display:grid;grid-template-columns:190px 1fr;gap:2.5rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border-bottom:none;margin-bottom:0}
+.t-meta{padding-top:.2rem}
+.t-date{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:.5rem}
+.t-company-badge{background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.2);color:var(--accent);font-size:10px;padding:2px 8px;border-radius:3px;font-family:var(--mono);display:inline-block}
+.t-content h3{font-family:var(--sans);font-size:.95rem;font-weight:600;margin-bottom:.5rem;color:var(--text)}
+.t-content ul{list-style:none}
+.t-content ul li{font-size:12px;color:var(--dim);padding-left:1rem;position:relative;margin-bottom:.4rem;line-height:1.7}
+.t-content ul li::before{content:'›';position:absolute;left:0;color:var(--accent)}
+
+/* ── EDUCATION ── */
+.edu-section{margin-top:3rem}
+.edu-section-heading{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--text);letter-spacing:-.01em;margin-bottom:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
+.edu-card-full{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;margin-bottom:1rem}
+.edu-card-full:last-child{margin-bottom:0}
+.edu-card-left{padding:1.75rem;border-right:1px solid var(--border);position:relative}
+.edu-card-left::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--accent)}
+.edu-type{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+.edu-degree-big{font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.5rem}
+.edu-school-name{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:.25rem}
+.edu-location-date{font-size:11px;color:var(--dim);font-family:var(--mono)}
+.edu-card-right{padding:1.75rem;background:rgba(0,0,0,.12)}
+.edu-courses-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem}
+.edu-courses-grid{display:flex;flex-wrap:wrap;gap:.4rem}
+.edu-courses-grid span{font-size:10px;padding:3px 9px;background:rgba(121,192,255,.07);border:1px solid rgba(121,192,255,.15);color:var(--blue);border-radius:3px;font-family:var(--mono)}
+
+/* ── CONTACT ── */
+#contact{text-align:center}
+.contact-sub{font-size:.9rem;color:var(--dim);margin-bottom:2.5rem;margin-top:-1.5rem}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem}
+.contact-link{display:flex;align-items:center;gap:.6rem;background:var(--bg2);border:1px solid var(--border);color:var(--dim);text-decoration:none;padding:.75rem 1.5rem;border-radius:6px;font-size:12px;font-family:var(--mono);transition:all .2s}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(240,136,62,.05)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;font-size:11px;color:var(--dim);font-family:var(--mono);flex-wrap:wrap;gap:.5rem}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #navbar{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  #hero{padding:7rem 1.5rem 3rem}
+  .hero-inner{grid-template-columns:1fr;gap:2rem}
+  .hero-right{align-items:flex-start}
+  .hero-photo,.hero-photo-placeholder{width:160px;height:160px}
+  .hero-info-cards{width:100%}
+  section{padding:4rem 1.5rem}
+  .about-grid{grid-template-columns:1fr}
+  .timeline-item{grid-template-columns:1fr;gap:1rem}
+  .edu-card-full{grid-template-columns:1fr}
+  .edu-card-left{border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">Misha Joshi</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="dot"></span>Open to Work</div>
+    <!-- ★ RESUME: replace href="#" below with your Google Drive / Dropbox share link -->
+    <a href="#" class="nav-resume" target="_blank">Resume ↗</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-kicker">Embedded Systems Engineer</div>
+      <h1 class="hero-name">Misha<br><span class="italic">Joshi</span></h1>
+      <p class="hero-desc">RTOS internals, bootloaders, kernel-level optimization, and real-time systems. I work where software meets silicon.</p>
+      <div class="hero-tags">
+        <span class="hero-tag">ARM Cortex-M</span>
+        <span class="hero-tag">FreeRTOS</span>
+        <span class="hero-tag">Embedded Linux</span>
+        <span class="hero-tag">Buildroot</span>
+        <span class="hero-tag">UART / SPI / I2C</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!--
+        ★ PHOTO — replace the div below with your actual photo:
+        <img src="photo.jpg" alt="Misha Joshi" class="hero-photo">
+        • Use a square or near-square crop (face centered)
+        • Place the image file in the same folder as index.html
+        • Supported: .jpg, .png, .webp
+        <div class="hero-photo-placeholder"><span>YOUR<br>PHOTO</span></div>
+      -->
+      
+      <img src="photo.jpg" alt="Misha Joshi" class="hero-photo">
+      <div class="hero-info-cards">
+        <div class="hero-info-card"><span class="hi-label">Degree</span><span class="hi-value">M.S. CompEng</span></div>
+        <div class="hero-info-card"><span class="hi-label">Available</span><span class="hi-value">May 2026</span></div>
+        <div class="hero-info-card"><span class="hi-label">University</span><span class="hi-value">NC State</span></div>
+        <div class="hero-info-card"><span class="hi-label">Location</span><span class="hi-value">Raleigh, NC</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="section-kicker">About</div>
+  <h2>Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>My work lives at the boundary where <strong>software meets hardware</strong> — from bootloaders and RTOS schedulers to kernel modules and distributed IoT systems. I care about the details that matter at this level: interrupt latency, memory layout, scheduler correctness.</p>
+      <p>I've modified FreeRTOS internals to implement EDF scheduling, written Linux kernel modules for µs-level GPIO response, built production-style bootloaders with CRC-verified firmware updates, and integrated full embedded Linux systems from the ground up using Buildroot with CI pipelines.</p>
+      <p>Currently pursuing my M.S. in Computer Engineering at NC State (May 2026). Most recently at Extreme Networks building RTOS firmware on STM32H5 MCUs — deterministic scheduling, ring-buffer logging frameworks, hardware bring-up with logic analyzers.</p>
+    </div>
+    <div class="about-sidebar fade-up">
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">// interests</div>
+        <div class="sidebar-tags">
+          <span>Real-Time Systems</span><span>RTOS Internals</span>
+          <span>Kernel Development</span><span>Bare-Metal Firmware</span>
+          <span>Embedded Linux</span><span>Hardware Bring-Up</span>
+          <span>Low-Level Debugging</span><span>Cross-Compilation</span>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">// currently learning</div>
+        <div class="sidebar-tags">
+          <span>Yocto / OpenEmbedded</span><span>PCB Design (Altium)</span>
+          <span>Secure Boot</span><span>Device Tree</span>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">// resume</div>
+        <div class="sidebar-resume-actions">
+          <!-- ★ RESUME: replace both href="#" with your PDF link -->
+          <a href="https://drive.google.com/file/d/1vxNhx5IjZ1MnlCiYeXzg-CrONNkpmsn2/view?usp=sharing" class="sidebar-resume-btn primary" target="_blank">↗ View</a>
+          <a href="https://drive.google.com/file/d/1vxNhx5IjZ1MnlCiYeXzg-CrONNkpmsn2/view?usp=sharing" class="sidebar-resume-btn ghost" download>↓ Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="projects-header">
+    <div><div class="section-kicker">Projects</div><h2>Selected Work</h2></div>
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="featured">Featured</button>
+      <button class="filter-btn" data-filter="rtos">RTOS / OS</button>
+      <button class="filter-btn" data-filter="linux">Linux</button>
+      <button class="filter-btn" data-filter="iot">IoT</button>
+    </div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- 01 STM32 UART BOOTLOADER -->
+    <div class="project-card featured fade-up" data-tags="featured rtos">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">STM32 Cortex-M4</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL e.g. https://github.com/mishajoshi/stm32-bootloader -->
+        <a href="https://github.com/mishajoshi/STM32-UART-Bootloader" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>STM32 UART Bootloader</h3>
+      <p>UART bootloader for in-field firmware updates on ARM Cortex-M4 — flash erase, CRC32 verification, safe application handoff via VTOR relocation.</p>
+      <ul class="card-highlights">
+        <li>CRC32-validated firmware updates over UART</li>
+        <li>Custom linker scripts for bootloader / app memory isolation</li>
+        <li>Safe jump: disable IRQs, stop SysTick, VTOR relocation, MSP reinit</li>
+        <li>Python host tool for firmware streaming and recovery</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>STM32CubeIDE</span><span>Python</span><span>GDB</span><span>Linker Scripts</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">How it works end-to-end:</span></p>
+        <p>On power-up, the bootloader waits for a host command over UART. Each command packet is CRC32-verified before execution. For a firmware update: erase target flash sector → write binary page-by-page (each page CRC-checked) → verify final image → jump to app.</p>
+        <p>The jump sequence: disable all IRQs → stop SysTick → relocate vector table via VTOR → reinitialize MSP from app's vector table → branch to reset handler. Bootloader sits at 0x08000000 (start of STM32 flash), application at a higher offset (e.g. 0x08010000).</p>
+        <span class="detail-note">KEY CHALLENGE: The jump sequence has to be exact — any missed step (VTOR, MSP, IRQ state) causes a hard fault on the other side.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Precise reset/handoff sequence matters; even minor omissions trigger hard faults.</li>
+        <li>Developing the Python host tool early made field testing far more reliable.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 02 FREERTOS EDF -->
+    <div class="project-card featured fade-up" data-tags="featured rtos">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">FreeRTOS</span><span class="badge">STM32 Cortex-M0</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/mishajoshi/freertos-scheduler-extensions-stm32" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>FreeRTOS EDF Scheduler</h3>
+      <p>Extended FreeRTOS to implement Earliest Deadline First scheduling — modified core kernel files to replace the default priority-based scheduler with deadline-ordered execution.</p>
+      <ul class="card-highlights">
+        <li>Modified tasks.c, tasks.h (kernel files) and FreeRTOSConfig.h</li>
+        <li>Deadline-sorted ready list with dynamic absolute deadline computation</li>
+        <li>Custom xTaskCreatePeriodic() API for periodic task registration</li>
+        <li>Identified first deadline-miss ticks via UART context-switch traces</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>FreeRTOS</span><span>STM32CubeIDE</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">What was actually changed inside FreeRTOS:</span></p>
+        <p>FreeRTOS uses a fixed-priority ready list. The EDF extension replaces this with a deadline-sorted list: <code>tasks.c</code> was modified so tasks are inserted in order of absolute deadline (release time + period). The scheduler always picks the head — earliest deadline first.</p>
+        <p>A custom <code>xTaskCreatePeriodic()</code> API creates tasks with a period and relative deadline. Each activation recomputes the absolute deadline. For overloaded task sets (utilization &gt; 1.0), the first deadline-miss tick was captured via UART logging.</p>
+        <span class="detail-note">KEY INSIGHT: EDF is theoretically optimal for preemptive uniprocessor scheduling — no algorithm can meet deadlines that EDF misses.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Computing absolute deadlines correctly at task creation is critical to correctness.</li>
+        <li>UART-based context‑switch tracing proved invaluable for observing deadline misses.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 03 GPIO KERNEL MODULE -->
+    <div class="project-card featured fade-up" data-tags="featured linux">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Raspberry Pi 4</span><span class="badge">Kernel Module</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/mishajoshi/I-O_Response_Time_Analysis_Project" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>Linux Kernel Module — Real-Time GPIO</h3>
+      <p>Replaced a polling-based GPIO loop (consuming ~100% of one CPU core) with an interrupt-driven Linux kernel module — dropping CPU overhead to near-zero with microsecond-level response times.</p>
+      <ul class="card-highlights">
+        <li>CPU utilization: polling ~100% → interrupt-driven near-zero</li>
+        <li>Kernel interrupt handler via request_irq() on GPIO IRQ line</li>
+        <li>Nanosecond timestamping via hrtimer, latency validated at &lt;10µs</li>
+        <li>Kernel space eliminates user-space scheduling jitter and syscall overhead</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>Linux Kernel</span><span>hrtimer</span><span>Raspberry Pi 4</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">Why polling was so bad, and how the kernel module fixed it:</span></p>
+        <p>The polling approach spun in a tight loop reading the GPIO register — consuming a full CPU core continuously. The kernel module registers an interrupt handler via <code>request_irq()</code> on the GPIO pin's IRQ line. The CPU idles between events; the interrupt fires only on signal change.</p>
+        <p>High-resolution timers (<code>hrtimer</code>) timestamp interrupt arrival with nanosecond resolution. The delta between physical signal edge and kernel handler entry was consistently in the low microseconds — kernel space removes the scheduling jitter inherent to user-space polling.</p>
+        <span class="detail-note">KEY RESULT: CPU load ~100% → near-zero between events. Handler latency &lt;10µs, confirmed via logic analyzer.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Switching from user‑space polling to a kernel interrupt handler freed an entire core.</li>
+        <li>High‑resolution timers plus a logic analyzer make latency measurement painless.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 04 XINU OS -->
+    <div class="project-card featured fade-up" data-tags="featured rtos">
+      <div class="card-header">
+        <span class="card-num">04</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Xinu OS</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/NCSU-DANCE-Research-Group/pa1-misha-joshi" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>Process Scheduling in Xinu OS</h3>
+      <p>Extended the Xinu OS kernel with two starvation-free schedulers — an aging-based priority scheduler and a Linux 2.2–style epoch scheduler, both integrated into kernel context switching.</p>
+      <ul class="card-highlights">
+        <li>Aging scheduler: dynamic priority increments prevent starvation</li>
+        <li>Epoch scheduler: goodness = counter + priority, with quantum carry-over</li>
+        <li>Modified resched.c, ready.c, create.c, proc.h at kernel level</li>
+        <li>Runtime policy selection via setschedclass() / getschedclass()</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>Xinu OS</span><span>Kernel Scheduling</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">Two schedulers, two problems:</span></p>
+        <p><span class="detail-label">Aging:</span> Under strict priority, low-priority processes starve. The fix: at every reschedule event, increment each waiting process's effective priority. Once it reaches the current highest, it runs, then resets. Modified <code>resched.c</code> and <code>proc.h</code> to hold the age counter per PCB.</p>
+        <p><span class="detail-label">Epoch (Linux 2.2):</span> Each epoch assigns quantum = <code>base + priority</code>. Unused quantum carries over: <code>new = base + priority + leftover/2</code>. Goodness = <code>counter + priority</code> determines who runs. New epoch starts when all counters hit zero. Modified <code>resched.c</code>, <code>ready.c</code>, <code>create.c</code>, <code>proc.h</code>.</p>
+      </div>
+    </div>
+
+    <!-- 05 BUILDROOT CI -->
+    <div class="project-card featured fade-up" data-tags="featured linux">
+      <div class="card-header">
+        <span class="card-num">05</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Buildroot</span><span class="badge">ARM aarch64</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/cu-ecen-aeld/assignment-5-mishajoshi" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>Embedded Linux System with TCP Socket Service &amp; CI</h3>
+      <p>Full embedded Linux system using Buildroot with a custom TCP socket server baked into the image — end-to-end validated via GitHub Actions CI and QEMU emulation.</p>
+      <ul class="card-highlights">
+        <li>TCP socket server in C with daemonization and signal handling</li>
+        <li>Custom Buildroot package (Config.in + .mk), cross-compiled for ARM aarch64</li>
+        <li>Auto-start via /etc/init.d on every boot</li>
+        <li>Full CI pipeline: build → QEMU boot → integration test → Valgrind on every push</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>Buildroot</span><span>QEMU</span><span>GitHub Actions</span><span>Valgrind</span><span>ARM aarch64</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">More than just a socket program:</span></p>
+        <p>The server binds to port 9000, handles one client at a time (sequential accept loop), appends data to <code>/var/tmp/aesdsocketdata</code>, returns the full accumulated contents after each write. Daemon mode (<code>-d</code>) forks to background, manages its PID file, handles SIGINT/SIGTERM cleanly.</p>
+        <p>The Buildroot package (<code>Config.in</code> + <code>aesdsocket.mk</code>) cross-compiles the binary and installs it with <code>/etc/init.d/S99aesdsocket</code>. The CI pipeline builds the full image, boots in QEMU with port forwarding, runs automated tests, and validates with Valgrind — all on every push.</p>
+        <span class="detail-note">KEY POINT: The socket server is the smallest part. Writing the Buildroot package, init script, and CI validation is where the real work is.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Packaging with Buildroot taught me how to automate full‑image builds and deployments.</li>
+        <li>Continuous integration gives confidence that every change boots correctly in QEMU.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 06 IMU DOOR MONITOR -->
+    <div class="project-card fade-up" data-tags="iot">
+      <div class="card-header">
+        <span class="card-num">06</span>
+        <div class="card-badges"><span class="badge">IoT</span><span class="badge">MQTT</span><span class="badge">ML</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/mishajoshi/Cloud_Connected_IMU_Based_Door_Monitoring_System" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>IMU-Based Door Monitoring System</h3>
+      <p>End-to-end IoT system for door state detection — IMU sensor data, SVM classification, MQTT over TLS, and a real-time Flask dashboard.</p>
+      <ul class="card-highlights">
+        <li>SVM classifier with rolling-window feature extraction (mean, variance, peak)</li>
+        <li>Significantly fewer false positives vs simple threshold detection on test data</li>
+        <li>Secure MQTT via TLS client certificates, EMQX broker</li>
+        <li>Flask dashboard, observed end-to-end latency under 500ms on local network</li>
+      </ul>
+      <div class="card-tech"><span>Python</span><span>MQTT / TLS</span><span>SVM</span><span>Flask</span><span>IMU</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">System flow:</span></p>
+        <p>IMU samples motion at a fixed rate → rolling window of raw samples → feature extraction (mean, variance, peak per axis) → pre-trained SVM outputs door state: open / closed / transitioning. SVM was chosen specifically because naive threshold detection triggered on every vibration event.</p>
+        <p>State events are published to an EMQX MQTT broker over TLS. A Flask app subscribes, maintains current state, and serves a real-time dashboard. End-to-end latency from physical door movement to dashboard update was observed under 500ms on the local network.</p>
+        <span class="detail-note">KEY DECISION: SVM over threshold — measurably fewer false positives, particularly on vibration events that plagued the naive version.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Applying simple ML dramatically improved robustness versus heuristic thresholds.</li>
+        <li>Securing MQTT with TLS reinforced the importance of end‑to‑end data protection.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 07 DISTRIBUTED IOT -->
+    <div class="project-card fade-up" data-tags="iot">
+      <div class="card-header">
+        <span class="card-num">07</span>
+        <div class="card-badges"><span class="badge">IoT</span><span class="badge">Distributed</span><span class="badge">MQTT</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/mishajoshi/IoT_Light_Control_System_with_MQTT" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>Distributed IoT Light Control</h3>
+      <p>Multi-node distributed light control system across Raspberry Pis — sensor → decision → actuator → monitor pipeline over MQTT pub/sub.</p>
+      <ul class="card-highlights">
+        <li>4-node architecture: sensor, decision, actuator, monitoring</li>
+        <li>I2C ADC light sensing with configurable threshold</li>
+        <li>EMQX broker: QoS 1 for commands, QoS 0 for telemetry</li>
+        <li>Adding new subscriber nodes requires no changes to existing node code</li>
+      </ul>
+      <div class="card-tech"><span>Python</span><span>MQTT</span><span>I2C</span><span>Raspberry Pi</span><span>EMQX</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">Node breakdown and message flow:</span></p>
+        <p>
+          <span class="detail-label">Sensor:</span> Reads ambient light via I2C ADC → publishes to <code>sensor/light</code>.<br>
+          <span class="detail-label">Decision:</span> Subscribes to <code>sensor/light</code>, compares threshold → publishes ON/OFF to <code>actuator/cmd</code>.<br>
+          <span class="detail-label">Actuator:</span> Subscribes to <code>actuator/cmd</code>, drives LED.<br>
+          <span class="detail-label">Monitor:</span> Subscribes to all topics, logs timestamps and node heartbeats.
+        </p>
+        <span class="detail-note">KEY PATTERN: Decoupled pub/sub architecture — each node only knows about topics, not other nodes. New subscribers plug in without touching existing code.</span>
+      <p><strong>Engineering Takeaways:</strong></p>
+      <ul>
+        <li>Designing around MQTT topics makes the system trivially extensible.</li>
+        <li>Choosing QoS levels appropriately prevents command loss while keeping telemetry light.</li>
+      </ul>
+      </div>
+    </div>
+
+    <!-- 08 LLVM -->
+    <div class="project-card fade-up" data-tags="rtos">
+      <div class="card-header">
+        <span class="card-num">08</span>
+        <div class="card-badges"><span class="badge">Compilers</span><span class="badge">LLVM</span></div>
+        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <a href="https://github.com/mishajoshi/llvm-ir-optimizer" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+      <h3>LLVM IR Optimizer</h3>
+      <p>Custom LLVM IR optimizer implementing 4 optimization passes on SSA-form IR — the same class of transformations that GCC and Clang apply to embedded firmware.</p>
+      <ul class="card-highlights">
+        <li>Global CSE via dominator tree analysis</li>
+        <li>Dead code elimination — removes instructions with no live uses</li>
+        <li>Store-to-load forwarding &amp; redundant store elimination</li>
+        <li>Per-pass statistics and IR verification</li>
+      </ul>
+      <div class="card-tech"><span>C++</span><span>LLVM</span><span>SSA</span><span>Dominator Trees</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">What each pass does:</span></p>
+        <p>
+          <span class="detail-label">Global CSE:</span> Builds a dominator tree. If an expression was computed in a dominating block and operands are unchanged, the recomputation is replaced with the existing value.<br>
+          <span class="detail-label">DCE:</span> Removes instructions whose results have no live uses reachable from the definition.<br>
+          <span class="detail-label">Store-to-load forwarding:</span> If a store to X is followed by a load from X with no intervening store, the load is replaced directly with the stored value.<br>
+          <span class="detail-label">Redundant store elimination:</span> Two stores to the same address with no intervening load — the first is dead and removed.
+        </p>
+        <p><strong>Engineering Takeaways:</strong></p>
+        <ul>
+          <li>IR verification after each pass caught subtle bugs early.</li>
+          <li>Collecting per‑pass statistics helped tune optimization order and aggressiveness.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 09 ARCHITECTURE COURSEWORK -->
+    <div class="project-card fade-up" data-tags="rtos">
+      <div class="card-header">
+        <span class="card-num">09</span>
+        <div class="card-badges"><span class="badge">Microarchitecture</span><span class="badge">Coursework</span></div>
+      </div>
+      <h3>Microarchitecture — Coursework</h3>
+      <p>Graduate coursework implementing OoO superscalar execution, branch prediction, and cache design simulators — to understand how hardware executes software at the microarchitecture level.</p>
+      <ul class="card-highlights">
+        <li>OoO superscalar pipeline: ROB, issue queue, register renaming (RAT), hazard handling</li>
+        <li>Branch predictor: studied prediction strategies and misprediction penalty impact</li>
+        <li>Cache simulator: WTWNA / WTWA / WBWA policies + LRU / LFU / LRFU replacement</li>
+        <li>Relevant context for firmware: how the CPU actually executes your embedded code</li>
+      </ul>
+      <div class="card-tech"><span>C/C++</span><span>OoO Execution</span><span>Branch Prediction</span><span>Cache Modeling</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">What was covered:</span></p>
+        <p><span class="detail-label">OoO Pipeline:</span> 9 stages — Fetch, Decode, Rename (RAT), Dispatch, Issue, Execute, Memory, Writeback, Commit (ROB in-order). Studied structural hazards, RAW/WAR/WAW dependencies, and branch misprediction penalties through simulation.</p>
+        <p><span class="detail-label">Branch predictor:</span> Analyzed prediction strategies and their effect on misprediction penalty and IPC. Understanding this matters in firmware: tight loops and conditional branches in interrupt handlers are directly affected.</p>
+        <p><span class="detail-label">Cache simulator:</span> Parameterized by associativity, block size, write policy, and replacement policy. Outputs hit/miss rates and average memory access time.</p>
+        <span class="detail-note">NOTE: Coursework — code not publicly shared, but happy to discuss the concepts in an interview.</span>
+        <p><strong>Engineering Takeaways:</strong></p>
+        <ul>
+          <li>Building simulators solidified my understanding of pipeline hazards and branch penalties.</li>
+          <li>Seeing cache behavior firsthand makes low‑level firmware optimizations more intuitive.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="section-kicker">Skills</div>
+  <h2>Technical Stack</h2>
+  <div class="skills-grid">
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-items">
+        <span>C</span><span>C++</span><span>Embedded C</span><span>Python</span><span>Bash</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Embedded Platforms</div>
+      <div class="skill-items">
+        <span>STM32 (Cortex-M0 / M3 / M4 / H5)</span><span>Raspberry Pi</span><span>Arduino</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">RTOS &amp; Operating Systems</div>
+      <div class="skill-items">
+        <span>FreeRTOS</span><span>Xinu OS</span><span>Embedded Linux</span><span>Buildroot</span><span>Yocto Project</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Hardware Protocols</div>
+      <div class="skill-items">
+        <span>UART</span><span>SPI</span><span>I2C</span><span>QSPI</span><span>DMA</span><span>GPIO</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Networking &amp; Comms</div>
+      <div class="skill-items">
+        <span>TCP/IP</span><span>MQTT</span><span>TLS</span><span>BLE</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Dev Tools</div>
+      <div class="skill-items">
+        <span>GCC / GDB</span><span>STM32CubeIDE</span><span>QEMU</span><span>GitHub Actions</span><span>Valgrind</span><span>Makefile</span><span>Docker</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Test &amp; Debug</div>
+      <div class="skill-items">
+        <span>Oscilloscope</span><span>Logic Analyzer</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Concepts</div>
+      <div class="skill-items">
+        <span>Linux Kernel Modules</span><span>Real-Time Scheduling (EDF / Aging / Epoch)</span><span>Interrupt Handling</span><span>Memory Mapping &amp; Linker Scripts</span><span>VTOR Relocation</span><span>Cross-Compilation (aarch64)</span><span>CI/CD</span><span>Context Switching</span><span>OoO Execution</span><span>Cache Replacement Policies</span>
+      </div>
+    </div>
+
+    <div class="skill-group familiarity fade-up">
+      <div class="skill-group-title">Familiar With</div>
+      <div class="skill-items">
+        <span>pytest</span><span>PCB Design (Altium)</span><span>Secure Boot</span><span>LabVIEW</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="section-kicker">Experience</div>
+  <h2>Work Experience</h2>
+  <div class="timeline">
+
+    <div class="timeline-item fade-up">
+      <div class="t-meta">
+        <div class="t-date">Jun 2025 – Aug 2025</div>
+        <span class="t-company-badge">Extreme Networks</span>
+      </div>
+      <div class="t-content">
+        <h3>Microcontroller Developer Intern</h3>
+        <ul>
+          <li>Designed RTOS-based firmware on STM32H5 MCUs implementing deterministic scheduling and safe concurrency.</li>
+          <li>Integrated HAL drivers (UART, QSPI, GPIO) with FreeRTOS static tasks for interrupt-driven operation.</li>
+          <li>Architected modular ring-buffer logging framework supporting UART and QSPI backends.</li>
+          <li>Validated firmware timing and signal integrity using logic analyzers and oscilloscopes.</li>
+          <li>Built portable Makefile-based STM32 FreeRTOS build system improving build reproducibility.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="t-meta">
+        <div class="t-date">Dec 2023 – Mar 2024</div>
+        <span class="t-company-badge">Physical Research Laboratory</span>
+      </div>
+      <div class="t-content">
+        <h3>Research Intern</h3>
+        <ul>
+          <li>Improved ion arrival angle accuracy using electrostatic simulation and Python-based modeling.</li>
+          <li>Optimized instrumentation resolution and signal analysis for improved measurement precision.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="t-meta">
+        <div class="t-date">May 2023 – Jul 2023</div>
+        <span class="t-company-badge">Institute for Plasma Research</span>
+      </div>
+      <div class="t-content">
+        <h3>Embedded Systems Intern</h3>
+        <ul>
+          <li>Integrated ARM Cortex-M3 peripherals (GPIO, UART, SPI, ADC) using STM32CubeIDE.</li>
+          <li>Developed a LabVIEW-based GUI for real-time ADC and UART data visualization.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="edu-section" id="education">
+    <div class="edu-section-heading">Education</div>
+
+    <div class="edu-card-full fade-up">
+      <div class="edu-card-left">
+        <div class="edu-type">Graduate</div>
+        <div class="edu-degree-big">M.S. Computer Engineering</div>
+        <div class="edu-school-name">North Carolina State University</div>
+        <div class="edu-location-date">Raleigh, NC &nbsp;·&nbsp; Expected May 2026</div>
+      </div>
+      <div class="edu-card-right">
+        <div class="edu-courses-label">Relevant Coursework</div>
+        <div class="edu-courses-grid">
+          <span>Embedded Systems Architecture</span>
+          <span>Operating Systems</span>
+          <span>Microprocessor Architecture</span>
+          <span>Real-Time Control Systems</span>
+          <span>Computer Networks</span>
+          <span>Internet of Things</span>
+          <span>Internet Protocols</span>
+          <span>Microarchitectural Security</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card-full fade-up">
+      <div class="edu-card-left">
+        <div class="edu-type">Undergraduate</div>
+        <div class="edu-degree-big">B.E. Electronics &amp; Communication Engineering</div>
+        <div class="edu-school-name">Dharmsinh Desai University</div>
+        <div class="edu-location-date">India &nbsp;·&nbsp; May 2024</div>
+      </div>
+      <div class="edu-card-right">
+        <div class="edu-courses-label">Relevant Coursework</div>
+        <div class="edu-courses-grid">
+          <span>Digital Signal Processing</span>
+          <span>Embedded Systems</span>
+          <span>Control Theory</span>
+          <span>Microcontroller Systems</span>
+          <span>Digital Electronics</span>
+          <span>VLSI Design</span>
+          <span>Communication Systems</span>
+          <span>Signals &amp; Systems</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="section-kicker">Contact</div>
+  <h2>Let's Connect</h2>
+  <p class="contact-sub">Open to embedded systems, firmware, and low-level software roles.</p>
+  <div class="contact-links">
+    <a href="mailto:mjoshi7@ncsu.edu" class="contact-link">✉ mjoshi7@ncsu.edu</a>
+    <!-- ★ LINKEDIN: replace href="#" with e.g. https://linkedin.com/in/misha-joshi -->
+    <a href="#" class="contact-link" target="_blank">in LinkedIn</a>
+    <!-- ★ GITHUB: replace href="#" with e.g. https://github.com/mishajoshi -->
+    <a href="#" class="contact-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="tel:+19195205949" class="contact-link">☎ +1 (919) 520-5949</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <span>Misha Joshi © 2025</span>
+    <span>Built for embedded. Optimized for humans.</span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── Navbar scroll shrink + active link ── */
+  const navbar   = document.getElementById('navbar');
+  const sections = document.querySelectorAll('section[id], div[id="education"]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 160) current = sec.id;
+    });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  }, { passive: true });
+
+  /* ── Project filter tabs ── */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card => {
+        const tags = (card.dataset.tags || '').split(' ');
+        card.classList.toggle('hidden', f !== 'all' && !tags.includes(f));
+      });
+    });
+  });
+
+  /* ── Project expand/collapse ── */
+  document.querySelectorAll('.card-expand-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const detail = btn.nextElementSibling;
+      const open   = detail.classList.toggle('open');
+      btn.textContent = open ? '‹ Hide details' : '› Show details';
+    });
+  });
+
+  /* ── Fade-up on scroll ── */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+});
+</script>
+</body>
+</html>
