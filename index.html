@@ -6,213 +6,7 @@
 <title>Misha Joshi — Embedded Systems Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-/* ── VARIABLES ── */
-:root{
-  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2333;
-  --border:rgba(139,148,158,.15);
-  --text:#e6edf3;--dim:#8b949e;
-  --accent:#f0883e;--blue:#79c0ff;--green:#56d364;
-  --serif:'Playfair Display',serif;
-  --sans:'Space Grotesk',sans-serif;
-  --mono:'IBM Plex Mono',monospace;
-}
-
-/* ── RESET ── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.7;overflow-x:hidden}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-
-/* ── NAV ── */
-#navbar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 3rem;
-  background:rgba(13,17,23,.93);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);transition:padding .3s;
-}
-#navbar.scrolled{padding:.65rem 3rem}
-.nav-logo{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--accent);text-decoration:none}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--dim);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--blue)}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.nav-status{display:flex;align-items:center;gap:.5rem;font-size:11px;color:var(--dim);font-family:var(--mono)}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-/* ─── RESUME BUTTON — replace href="#" with your PDF link ─── */
-.nav-resume{
-  background:var(--accent);color:var(--bg);
-  padding:.3rem .9rem;border-radius:4px;
-  font-size:11px;font-weight:600;text-decoration:none;
-  font-family:var(--mono);letter-spacing:.04em;
-  transition:all .2s;white-space:nowrap;
-}
-.nav-resume:hover{background:#fff}
-
-/* ── HERO ── */
-#hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:8rem 3rem 4rem;overflow:hidden}
-.hero-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 50% at 70% 40%,rgba(240,136,62,.06) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 40% at 20% 70%,rgba(121,192,255,.04) 0%,transparent 50%);
-}
-.hero-inner{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center;position:relative;z-index:2}
-.hero-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
-.hero-kicker::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
-.hero-name{font-family:var(--serif);font-size:clamp(3rem,6.5vw,5.5rem);line-height:.95;letter-spacing:-.02em;color:var(--text);margin-bottom:1.25rem}
-.hero-name .italic{font-style:italic;color:var(--accent)}
-.hero-desc{font-size:.95rem;color:var(--dim);line-height:1.8;max-width:520px;margin-bottom:2rem}
-.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
-.hero-tag{background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.2);color:var(--accent);font-size:10px;padding:3px 10px;border-radius:3px;font-family:var(--mono);letter-spacing:.06em}
-.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{background:var(--accent);color:var(--bg);padding:.7rem 1.75rem;text-decoration:none;font-weight:600;font-size:12px;letter-spacing:.06em;border-radius:4px;transition:all .2s}
-.btn-primary:hover{background:#fff;transform:translateY(-1px)}
-.btn-ghost{border:1px solid var(--border);color:var(--dim);padding:.7rem 1.75rem;text-decoration:none;font-size:12px;letter-spacing:.06em;border-radius:4px;transition:all .2s}
-.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
-.hero-right{display:flex;flex-direction:column;gap:1rem;align-items:center;min-width:240px}
-/* ─── PHOTO ─── replace the placeholder div with: <img src="photo.jpg" alt="Misha Joshi" class="hero-photo"> */
-.hero-photo{width:220px;height:220px;border-radius:12px;object-fit:cover;border:2px solid rgba(240,136,62,.4);box-shadow:0 0 0 6px rgba(240,136,62,.06),0 20px 60px rgba(0,0,0,.5)}
-.hero-photo-placeholder{width:220px;height:220px;border-radius:12px;border:2px dashed rgba(240,136,62,.3);display:flex;align-items:center;justify-content:center;color:rgba(240,136,62,.5);font-size:11px;text-align:center;background:rgba(240,136,62,.03);font-family:var(--mono)}
-.hero-info-cards{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;width:220px}
-.hero-info-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.6rem .75rem}
-.hi-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.15rem}
-.hi-value{display:block;font-size:12px;font-weight:600;color:var(--text)}
-
-/* ── SECTIONS ── */
-section{padding:6rem 3rem;max-width:1200px;margin:0 auto;position:relative;border-top:1px solid var(--border)}
-.section-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem}
-.section-kicker::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
-section h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:-.01em;margin-bottom:2.5rem;color:var(--text)}
-
-/* ── ABOUT ── */
-.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start}
-.about-text p{font-size:.95rem;line-height:1.85;color:var(--dim);margin-bottom:1.25rem}
-.about-text p:last-child{margin-bottom:0}
-.about-text strong{color:var(--blue);font-weight:600}
-.about-sidebar{display:flex;flex-direction:column;gap:.75rem}
-.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem}
-.sidebar-card-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.65rem}
-.sidebar-tags{display:flex;flex-wrap:wrap;gap:.35rem}
-.sidebar-tags span{font-size:10px;padding:2px 9px;background:rgba(240,136,62,.06);border:1px solid rgba(240,136,62,.15);color:var(--accent);border-radius:3px;font-family:var(--mono)}
-.sidebar-resume-actions{display:flex;gap:.5rem}
-.sidebar-resume-btn{flex:1;text-align:center;padding:.45rem .5rem;border-radius:4px;font-size:11px;font-weight:600;font-family:var(--mono);text-decoration:none;transition:all .2s;white-space:nowrap}
-.sidebar-resume-btn.primary{background:var(--accent);color:var(--bg)}
-.sidebar-resume-btn.primary:hover{background:#fff}
-.sidebar-resume-btn.ghost{border:1px solid var(--border);color:var(--dim)}
-.sidebar-resume-btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── PROJECTS ── */
-.projects-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
-.filter-tabs{display:flex;gap:.4rem;flex-wrap:wrap}
-.filter-btn{background:transparent;border:1px solid var(--border);color:var(--dim);font-family:var(--mono);font-size:11px;padding:.3rem .9rem;border-radius:3px;cursor:pointer;transition:all .2s}
-.filter-btn.active,.filter-btn:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.25rem}
-.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:all .3s}
-.project-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:transparent;transition:background .3s}
-.project-card:hover{border-color:rgba(240,136,62,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);transform:translateY(-2px)}
-.project-card:hover::before{background:var(--accent)}
-.project-card.featured{border-color:rgba(240,136,62,.2)}
-.project-card.featured::before{background:var(--accent)}
-.project-card.hidden{display:none!important}
-.card-header{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
-.card-num{font-family:var(--mono);font-size:10px;color:var(--dim)}
-.card-badges{display:flex;gap:.35rem;flex-wrap:wrap;flex:1}
-.badge{font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--dim);font-family:var(--mono)}
-.badge-featured{background:rgba(240,136,62,.1);border-color:rgba(240,136,62,.25);color:var(--accent)}
-.card-github{color:var(--dim);transition:color .2s;display:flex;align-items:center;margin-left:auto}
-.card-github svg{width:15px;height:15px}
-.card-github:hover{color:var(--accent)}
-.project-card h3{font-family:var(--sans);font-size:1rem;font-weight:600;line-height:1.3;margin-bottom:.5rem;color:var(--text)}
-.project-card>p{font-size:12px;color:var(--dim);line-height:1.7;margin-bottom:.75rem}
-.card-highlights{list-style:none;margin-bottom:.75rem}
-.card-highlights li{font-size:11px;color:var(--dim);padding-left:1rem;position:relative;margin-bottom:.25rem;line-height:1.6}
-.card-highlights li::before{content:'›';position:absolute;left:0;color:var(--accent);font-size:12px}
-.card-tech{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem}
-.card-tech span{font-size:9px;padding:2px 7px;background:rgba(121,192,255,.06);border:1px solid rgba(121,192,255,.12);color:var(--blue);border-radius:3px;font-family:var(--mono);white-space:nowrap}
-.card-expand-btn{font-size:10px;color:var(--dim);cursor:pointer;background:none;border:none;font-family:var(--mono);text-align:left;padding:.25rem 0;margin-top:auto;transition:color .2s}
-.card-expand-btn:hover{color:var(--accent)}
-.card-detail{display:none;margin-top:.75rem;padding:.9rem;border:1px solid var(--border);border-radius:4px;background:rgba(0,0,0,.2);font-size:11.5px;color:var(--dim);line-height:1.8}
-.card-detail.open{display:block}
-.card-detail p{margin-bottom:.5rem}
-.card-detail p:last-child{margin-bottom:0}
-.card-detail code{color:var(--blue);background:rgba(121,192,255,.08);padding:1px 4px;border-radius:2px;font-family:var(--mono);font-size:10.5px}
-.detail-label{font-weight:600;color:var(--text)}
-.detail-note{color:var(--blue);font-size:10px;font-family:var(--mono);display:block;margin-top:.6rem;padding:.5rem .6rem;background:rgba(121,192,255,.05);border-left:2px solid var(--blue);border-radius:0 3px 3px 0}
-
-/* ── SKILLS ── */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
-.skill-group{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem}
-.skill-group-title{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
-.skill-items{display:flex;flex-wrap:wrap;gap:.35rem}
-.skill-items span{font-size:11px;padding:3px 9px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:3px;color:var(--dim);font-family:var(--mono);transition:all .2s;cursor:default}
-.skill-items span:hover{background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.2);color:var(--accent)}
-.skill-group.familiarity .skill-items span{background:rgba(139,148,158,.05);border-color:rgba(139,148,158,.15);color:var(--dim)}
-.skill-group.familiarity .skill-items span:hover{background:rgba(240,136,62,.06);border-color:rgba(240,136,62,.15);color:var(--accent)}
-
-/* ── EXPERIENCE ── */
-.timeline{margin-bottom:3rem}
-.timeline-item{display:grid;grid-template-columns:190px 1fr;gap:2.5rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-.timeline-item:last-child{border-bottom:none;margin-bottom:0}
-.t-meta{padding-top:.2rem}
-.t-date{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:.5rem}
-.t-company-badge{background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.2);color:var(--accent);font-size:10px;padding:2px 8px;border-radius:3px;font-family:var(--mono);display:inline-block}
-.t-content h3{font-family:var(--sans);font-size:.95rem;font-weight:600;margin-bottom:.5rem;color:var(--text)}
-.t-content ul{list-style:none}
-.t-content ul li{font-size:12px;color:var(--dim);padding-left:1rem;position:relative;margin-bottom:.4rem;line-height:1.7}
-.t-content ul li::before{content:'›';position:absolute;left:0;color:var(--accent)}
-
-/* ── EDUCATION ── */
-.edu-section{margin-top:3rem}
-.edu-section-heading{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--text);letter-spacing:-.01em;margin-bottom:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
-.edu-card-full{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;margin-bottom:1rem}
-.edu-card-full:last-child{margin-bottom:0}
-.edu-card-left{padding:1.75rem;border-right:1px solid var(--border);position:relative}
-.edu-card-left::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--accent)}
-.edu-type{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
-.edu-degree-big{font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.5rem}
-.edu-school-name{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:.25rem}
-.edu-location-date{font-size:11px;color:var(--dim);font-family:var(--mono)}
-.edu-card-right{padding:1.75rem;background:rgba(0,0,0,.12)}
-.edu-courses-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem}
-.edu-courses-grid{display:flex;flex-wrap:wrap;gap:.4rem}
-.edu-courses-grid span{font-size:10px;padding:3px 9px;background:rgba(121,192,255,.07);border:1px solid rgba(121,192,255,.15);color:var(--blue);border-radius:3px;font-family:var(--mono)}
-
-/* ── CONTACT ── */
-#contact{text-align:center}
-.contact-sub{font-size:.9rem;color:var(--dim);margin-bottom:2.5rem;margin-top:-1.5rem}
-.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem}
-.contact-link{display:flex;align-items:center;gap:.6rem;background:var(--bg2);border:1px solid var(--border);color:var(--dim);text-decoration:none;padding:.75rem 1.5rem;border-radius:6px;font-size:12px;font-family:var(--mono);transition:all .2s}
-.contact-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(240,136,62,.05)}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;font-size:11px;color:var(--dim);font-family:var(--mono);flex-wrap:wrap;gap:.5rem}
-
-/* ── ANIMATIONS ── */
-.fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  #navbar{padding:1rem 1.5rem}
-  .nav-links{display:none}
-  #hero{padding:7rem 1.5rem 3rem}
-  .hero-inner{grid-template-columns:1fr;gap:2rem}
-  .hero-right{align-items:flex-start}
-  .hero-photo,.hero-photo-placeholder{width:160px;height:160px}
-  .hero-info-cards{width:100%}
-  section{padding:4rem 1.5rem}
-  .about-grid{grid-template-columns:1fr}
-  .timeline-item{grid-template-columns:1fr;gap:1rem}
-  .edu-card-full{grid-template-columns:1fr}
-  .edu-card-left{border-right:none;border-bottom:1px solid var(--border)}
-}
-</style>
+<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
@@ -298,17 +92,16 @@ footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
       <div class="sidebar-card">
         <div class="sidebar-card-title">// currently learning</div>
         <div class="sidebar-tags">
-          <span>Yocto / OpenEmbedded</span><span>PCB Design (Altium)</span>
+          <span>PCB Design (Altium)</span>
           <span>Secure Boot</span><span>Device Tree</span>
         </div>
       </div>
-      <!--<div class="sidebar-card">
+      <div class="sidebar-card">
         <div class="sidebar-card-title">// resume</div>
         <div class="sidebar-resume-actions">
-           ★ RESUME: replace both href="#" with your PDF link 
-          <a href="https://drive.google.com/file/d/1vxNhx5IjZ1MnlCiYeXzg-CrONNkpmsn2/view?usp=sharing" class="sidebar-resume-btn primary" target="_blank">↗ View</a>
-          <a href="https://drive.google.com/file/d/1vxNhx5IjZ1MnlCiYeXzg-CrONNkpmsn2/view?usp=sharing" class="sidebar-resume-btn ghost" download>↓ Download</a> 
-        </div> --->
+          <a href="https://drive.google.com/drive/folders/1JNRtNl_jOqoUVS9ZgYaS7SBAVMDAhXrQ?usp=sharing" class="sidebar-resume-btn primary" target="_blank">↗ View</a>
+          <a href="https://drive.google.com/drive/folders/1JNRtNl_jOqoUVS9ZgYaS7SBAVMDAhXrQ?usp=sharing" class="sidebar-resume-btn ghost" download>↓ Download</a>
+        </div>
       </div>
     </div>
   </div>
@@ -446,34 +239,54 @@ footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
       </div>
     </div>
 
-    <!-- 05 BUILDROOT CI -->
+    <!-- 04b READERS-WRITER LOCKS -->
+    <div class="project-card featured fade-up" data-tags="featured rtos">
+      <div class="card-header">
+        <span class="card-num">04b</span>
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Xinu OS</span><span class="badge">Synchronization</span></div>
+      </div>
+      <h3>Readers-Writer Locks with Priority Inheritance</h3>
+      <p>Kernel-level readers-writer lock system in Xinu OS with a full priority inheritance protocol — solving priority inversion with transitive propagation across lock chains.</p>
+      <ul class="card-highlights">
+        <li>R/W lock semantics: concurrent readers, exclusive writers, priority-ordered wait queues</li>
+        <li>Priority inheritance: lock holder's priority raised to match highest-priority waiter</li>
+        <li>Transitive inheritance: propagates across chains (A waits on B waits on C → all elevated)</li>
+        <li>Fixed Xinu's sdelete bug — waiting processes now return DELETED, not OK</li>
+      </ul>
+      <div class="card-tech"><span>C</span><span>Xinu OS</span><span>Kernel Synchronization</span><span>Real-Time Systems</span></div>
+      <button class="card-expand-btn">› Show details</button>
+      <div class="card-detail">
+        <p><span class="detail-label">Why this matters in real-time systems:</span></p>
+        <p>Priority inversion — where a high-priority task is blocked by a low-priority one holding a lock — can cause timing violations in real-time systems. The fix: when a high-priority process P1 waits on a lock held by lower-priority P2, P2's effective priority is raised to match P1's. If P2 is itself blocked waiting on another lock held by P3, P3's priority is raised too (transitive propagation).</p>
+        <p><span class="detail-label">Implementation:</span> Built <code>linit.c</code>, <code>lcreate.c</code>, <code>ldelete.c</code>, <code>lock.c</code>, and <code>releaseall.c</code> as a new subsystem alongside (not modifying) the existing Xinu semaphore system. The lock table tracks current holders, wait queue priorities, and inherited priorities per process. <code>releaseall()</code> atomically releases multiple locks and recalculates inherited priorities.</p>
+        <p><span class="detail-label">Locking policy:</span> Readers are admitted if no writer holds the lock and no equal-or-higher-priority writer is waiting. Writers are always given preference at equal priority. Ties broken by wait time.</p>
+        <span class="detail-note">KEY INSIGHT: Priority inversion is a real failure mode in embedded RTOS systems — the Mars Pathfinder mission famously suffered from it in 1997.</span>
+      </div>
+    </div>
+
+    <!-- 05 EMBEDDED LINUX SYSTEMS -->
     <div class="project-card featured fade-up" data-tags="featured linux">
       <div class="card-header">
         <span class="card-num">05</span>
-        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Buildroot</span><span class="badge">ARM aarch64</span></div>
-        <!-- ★ GITHUB: replace href="#" with your repo URL -->
+        <div class="card-badges"><span class="badge badge-featured">★ Featured</span><span class="badge">Buildroot</span><span class="badge">Yocto</span><span class="badge">ARM aarch64</span></div>
         <a href="https://github.com/cu-ecen-aeld/assignment-5-mishajoshi" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
       </div>
-      <h3>Embedded Linux System with TCP Socket Service &amp; CI</h3>
-      <p>Full embedded Linux system using Buildroot with a custom TCP socket server baked into the image — end-to-end validated via GitHub Actions CI and QEMU emulation.</p>
+      <h3>Embedded Linux Systems Development</h3>
+      <p>End-to-end embedded Linux development using both Buildroot and Yocto — kernel, root filesystem, custom packages, multi-threaded user-space services, and full CI validation via QEMU.</p>
       <ul class="card-highlights">
-        <li>TCP socket server in C with daemonization and signal handling</li>
-        <li>Custom Buildroot package (Config.in + .mk), cross-compiled for ARM aarch64</li>
-        <li>Auto-start via /etc/init.d on every boot</li>
-        <li>Full CI pipeline: build → QEMU boot → integration test → Valgrind on every push</li>
+        <li>Multi-threaded TCP server in C with pthreads and mutex synchronization for concurrent clients</li>
+        <li>Buildroot: custom package (Config.in + .mk), cross-compiled for ARM aarch64, auto-start via init.d</li>
+        <li>Yocto: custom layer and BitBake recipe integrating the application into a full Linux image</li>
+        <li>CI pipeline: automated build → QEMU boot → integration tests → Valgrind on every push</li>
       </ul>
-      <div class="card-tech"><span>C</span><span>Buildroot</span><span>QEMU</span><span>GitHub Actions</span><span>Valgrind</span><span>ARM aarch64</span></div>
+      <div class="card-tech"><span>C</span><span>Buildroot</span><span>Yocto</span><span>pthreads</span><span>QEMU</span><span>GitHub Actions</span><span>Valgrind</span></div>
       <button class="card-expand-btn">› Show details</button>
       <div class="card-detail">
-        <p><span class="detail-label">More than just a socket program:</span></p>
-        <p>The server binds to port 9000, handles one client at a time (sequential accept loop), appends data to <code>/var/tmp/aesdsocketdata</code>, returns the full accumulated contents after each write. Daemon mode (<code>-d</code>) forks to background, manages its PID file, handles SIGINT/SIGTERM cleanly.</p>
-        <p>The Buildroot package (<code>Config.in</code> + <code>aesdsocket.mk</code>) cross-compiles the binary and installs it with <code>/etc/init.d/S99aesdsocket</code>. The CI pipeline builds the full image, boots in QEMU with port forwarding, runs automated tests, and validates with Valgrind — all on every push.</p>
-        <span class="detail-note">KEY POINT: The socket server is the smallest part. Writing the Buildroot package, init script, and CI validation is where the real work is.</span>
-      <p><strong>Engineering Takeaways:</strong></p>
-      <ul>
-        <li>Packaging with Buildroot taught me how to automate full‑image builds and deployments.</li>
-        <li>Continuous integration gives confidence that every change boots correctly in QEMU.</li>
-      </ul>
+        <p><span class="detail-label">Two build systems, same goal — understanding the full embedded Linux stack:</span></p>
+        <p><span class="detail-label">Buildroot:</span> The TCP server (<code>aesdsocket</code>) binds to port 9000, spawns a thread per client using pthreads with mutex-protected shared state, and daemonizes via fork/setsid. Packaged as a custom Buildroot component with <code>Config.in</code> + <code>aesdsocket.mk</code>, installed with <code>/etc/init.d/S99aesdsocket</code> for auto-start.</p>
+        <p><span class="detail-label">Yocto:</span> Rebuilt the same application as a Yocto recipe inside a custom layer. BitBake handles cross-compilation, staging, and image integration — a meaningfully different workflow from Buildroot's make-based approach.</p>
+        <p>The CI pipeline builds the full image, boots in QEMU with port forwarding, runs integration tests, and validates with Valgrind — all triggered on every push.</p>
+        <span class="detail-note">KEY POINT: Building with both tools makes the differences real — Buildroot is fast and simple; Yocto is more complex but far more configurable for production systems.</span>
       </div>
     </div>
 
@@ -517,7 +330,7 @@ footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
         <a href="https://github.com/mishajoshi/IoT_Light_Control_System_with_MQTT" class="card-github" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
       </div>
       <h3>Distributed IoT Light Control</h3>
-      <p>Multi-node distributed light control system across Raspberry Pis — sensor → decision → actuator → monitor pipeline over MQTT pub/sub.</p>
+      <p>4-node MQTT pub/sub system across Raspberry Pis — demonstrates QoS-aware message routing, decoupled architecture, and real I2C sensor integration.</p>
       <ul class="card-highlights">
         <li>4-node architecture: sensor, decision, actuator, monitoring</li>
         <li>I2C ADC light sensing with configurable threshold</li>
@@ -696,11 +509,11 @@ footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
       <div class="t-content">
         <h3>Microcontroller Developer Intern</h3>
         <ul>
-          <li>Designed RTOS-based firmware on STM32H5 MCUs implementing deterministic scheduling and safe concurrency.</li>
-          <li>Integrated HAL drivers (UART, QSPI, GPIO) with FreeRTOS static tasks for interrupt-driven operation.</li>
-          <li>Architected modular ring-buffer logging framework supporting UART and QSPI backends.</li>
-          <li>Validated firmware timing and signal integrity using logic analyzers and oscilloscopes.</li>
-          <li>Built portable Makefile-based STM32 FreeRTOS build system improving build reproducibility.</li>
+          <li>Designed RTOS-based firmware on STM32H5 to coordinate concurrent peripherals under interrupt-driven workloads, ensuring deterministic execution in time-critical paths.</li>
+          <li>Integrated UART, QSPI, and GPIO drivers with FreeRTOS tasks using interrupt-driven data flow.</li>
+          <li>Architected ring-buffer-based logging framework to eliminate blocking in ISR-heavy paths and decouple logging from application logic.</li>
+          <li>Diagnosed timing violations caused by blocking UART logging using oscilloscope and logic analyzer, redesigning the logging path to be non-blocking.</li>
+          <li>Built portable Makefile-based STM32 FreeRTOS build system improving build reproducibility across environments.</li>
         </ul>
       </div>
     </div>
@@ -807,62 +620,11 @@ footer{border-top:1px solid var(--border);padding:1.5rem 3rem}
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
-    <span>Misha Joshi © 2025</span>
+    <span>Misha Joshi © 2026</span>
     <span>Built for embedded. Optimized for humans.</span>
   </div>
 </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  /* ── Navbar scroll shrink + active link ── */
-  const navbar   = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section[id], div[id="education"]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 160) current = sec.id;
-    });
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
-  }, { passive: true });
-
-  /* ── Project filter tabs ── */
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      document.querySelectorAll('.project-card').forEach(card => {
-        const tags = (card.dataset.tags || '').split(' ');
-        card.classList.toggle('hidden', f !== 'all' && !tags.includes(f));
-      });
-    });
-  });
-
-  /* ── Project expand/collapse ── */
-  document.querySelectorAll('.card-expand-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const detail = btn.nextElementSibling;
-      const open   = detail.classList.toggle('open');
-      btn.textContent = open ? '‹ Hide details' : '› Show details';
-    });
-  });
-
-  /* ── Fade-up on scroll ── */
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.07 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>

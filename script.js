@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
+                setTimeout(() => e.target.classList.add('visible'), i * 60);
         obs.unobserve(e.target);
       }
     });
